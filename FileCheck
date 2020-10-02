@@ -1,0 +1,71 @@
+#!/bin/bash
+#Check if all needed executive files are in the same directory.
+files=( $(ls "$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )") )
+calcFlag=0
+searchFlag=0
+reverseFlag=0
+strlenFlag=0
+logFlag=0
+helpFlag=0
+interactiveFlag=0
+for((i=0; i<${#files[@]}; i++))
+do
+if [[ ${files[i]} = "calc" ]]
+then
+calcFlag=1
+fi 
+if [[ ${files[i]} = "search" ]]
+then
+searchFlag=1
+fi
+if [[ ${files[i]} = "reverse" ]]
+then 
+reverseFlag=1
+fi
+if [[ ${files[i]} = "strlen" ]]
+then 
+strlenFlag=1
+fi
+if [[ ${files[i]} = "log" ]]
+then
+logFlag=1
+fi
+if [[ ${files[i]} = "help" ]]
+then
+helpFlag=1
+fi
+if [[ ${files[i]} = "interactive" ]]
+then 
+interactiveFlag=1
+fi
+done
+flags=0
+let flags=$calcFlag\*$searchFlag\*$reverseFlag\*$strlenFlag\*$logFlag\*$helpFlag\*$interactiveFlag
+if [[ $calcFlag -eq 0 ]]
+then
+echo "The Calculator file seems to be missing."
+fi
+if [[ $searchFlag -eq 0 ]]
+then
+echo "The Search file seems to be missing."
+fi
+if [[ $reverseFlag -eq 0 ]]
+then
+echo "The Reverse file seems to be missing."
+fi
+if [[ $strlenFlag -eq 0 ]]
+then 
+echo "The String Length file seems to be missing."
+fi
+if [[ $logFlag -eq 0 ]]
+then 
+echo "The Log file seems to be missing."
+fi
+if [[ $helpFlag -eq 0 ]]
+then
+echo "The Help Flag seems to be missing."
+fi
+if [[ $interactiveFlag -eq 0 ]]
+then 
+echo "The Interactive file seems to be missing."
+fi

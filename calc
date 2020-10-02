@@ -1,0 +1,39 @@
+#!/bin/bash
+#Check if arguements are integer numbers:
+numberCheck='^[-,+]?[0-9]+$'
+if ! [[ $2 =~ $numberCheck ]] || ! [[ $3 =~ $numberCheck ]]
+then 
+echo "Third and Fourth arguements should be integer numbers." 1>&2
+exit -1
+fi
+#Calculate the result:
+result=0
+if [[ $1 = "sum" ]] 
+then 
+let result=$2\+$3 
+else 
+if [[ $1 = "sub" ]] 
+then 
+let result=$2\-$3 
+else 
+if [[ $1 = "mul" ]] 
+then 
+let result=$2\*$3 
+else 
+if [[ $1 = "div" ]] 
+then
+if [[ $3 -eq 0 ]]
+then
+echo "You can't divide by zero." 1>&2
+exit -2
+else 
+let result=$2\/$3
+fi
+else
+echo "Wrong Second Arguement." 1>&2
+exit  -3
+fi
+fi
+fi
+fi
+echo $result

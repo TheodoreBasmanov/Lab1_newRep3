@@ -1,0 +1,24 @@
+#!/bin/bash
+nl=$'\n'
+string=$"Help:
+${nl}Functions:
+${nl}1. Calculator. Insert \"calc\". Then insert \"sum\"/\"sub\"/\"mul\"/\"div\" and two integer numbers. The programm will summ, substract, multiply or divide the numbers.
+${nl}2. Search. Insert \"search\". Then insert path to the directory and a regular expression. The programm will search in the files in the directory in accordance with the expression.
+${nl}3. Reversed wrtiter. Insert \"reverse\". Then insert names of two files. The programm will write reversed content of the first file into the second file.
+${nl}4. String length. Insert \"strlen\". Then insert a string. The programm will return length of the string.
+${nl}5. Log. Insert \"log\". The programm will return warnings and informational messages from the file /var/log/anaconda/X.log.
+${nl}6. Exits. Insert \"exit\". The progamm ends its work with the exit status inserted in the third arguement.
+${nl}7. Help. Insert \"help\". The progamm shows help manual (you're looking at it right now).
+${nl}8. Interactive mode. Insert \"inreactive\". The programm will go into the ineractive mode and show you the menu.
+${nl}Exit codes:
+${nl}-1 - inserted wrong arguements in the Caculator (they should be integer numbers).
+${nl}-2 - tried to dvivide by zero in the Calculator.
+${nl}-3 - inserted a non existing command in the Calculator.
+${nl}-4 - tried to work with a non existing file in Search or Reversed writer.
+${nl}-5 - tried to address the file of the app which is missing.
+${nl}-6 - didn't insert enough arguements for the wanted command.
+${nl}-7 - inserted a line as an exit code.
+${nl}-8 - the file is not readable.
+${nl}-9 - the file is not writable."
+echo "$string"
+

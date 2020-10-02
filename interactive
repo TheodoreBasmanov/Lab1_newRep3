@@ -1,0 +1,119 @@
+#!/bin/bash
+#Show the menu:
+nl=$'\n'
+menu=$"Menu:
+${nl}a. Calculator;
+${nl}b. Search;
+${nl}c. Reverse;
+${nl}d. String Length;
+${nl}e. Log;
+${nl}f. Exit;
+${nl}g. Help;
+${nl} Insert the letter or the name of the command. To exit insert Exit or f."
+#Check the files:
+dir="$( dirname "${BASH_SOURCE[0]}")"
+fileName="FileCheck"
+fileExists=$(find "$dir" -name "$fileName")
+if [[ $fileExists ]]
+then
+source FileCheck
+else
+echo "The file check file is missing." 1>&2
+exit -5
+fi
+IFS=""
+#Get the command and the arguements. If there's not enough arguements, unlike main the app wouldn't show an error message, since the user was specifically told what to insert.
+while :
+do
+echo "$menu"
+read insert
+if [[ "$insert" = "a" ]] || [[ "$insert" = "Calculator" ]]
+then
+if [[ $calcFlag -eq 0 ]]
+then 
+echo "The file is still missing."
+continue
+else
+echo "Insert a command and two integer numbers."
+read command number1 number2
+./calc $command $number1 $number2
+fi
+else
+if [[ "$insert" = "f" ]] || [[ "$insert" = "Exit" ]]
+then
+echo "Insert one numeric arguement or don't."
+read arg1 
+numberCheck='^[-,+]?[0-9]+$'
+if ! [[ $arg1 =~ $numberCheck ]]
+then
+echo "The exit code should be anumber." 
+exit -7
+else
+exit $arg1
+fi
+else
+if [[ "$insert" = "b" ]] || [[ "$insert" = "Search" ]]
+then
+if [[ $searchFlag -eq 0 ]]
+then
+echo "The file is still missing." 1>&2
+continue
+else
+echo "Insert the name of the directory and a regular expression."
+read dir expr
+./search $dir $expr
+fi
+else
+if [[ "$insert" = "c" ]] || [[ "$insert" = "reverse" ]]
+then
+if [[ $reverseFlag -eq 0 ]]
+then
+echo "The file is still missing." 1>&2
+continue
+else
+echo "Insert two names of the files."
+read file1 file2
+./reverse $file1 $file2
+fi
+else
+if [[ "$insert" = "d" ]] || [[ "$insert" = "String Length" ]]
+then
+if [[ $strlenFlag -eq 0 ]]
+then
+echo "The file is still missing." 1>&2
+continue
+else
+echo "Insert a line."
+read -e -r line
+./strlen "strlen "$line
+fi
+else
+if [[ "$insert" = "e" ]] || [[ "$insert" = "Log" ]]
+then
+if [[ $logFlag -eq 0 ]]
+then
+echo "The file is still missing." 1>&2
+continue
+else
+./log
+fi
+else
+if [[ "$insert" = "g" ]] || [[ "$insert" = "Help" ]]
+then
+if [[ $helpFlag -eq 0 ]]
+then
+echo "The file is still missing." 1>&2
+continue
+else
+./help
+fi 
+else
+echo "There's no such command, look the menu up." 1>&2
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+done 

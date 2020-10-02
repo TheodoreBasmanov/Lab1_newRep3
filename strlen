@@ -1,0 +1,5 @@
+#!/bin/bash
+#Find the length of the string:
+string="$*"
+let length=${#string}\-7
+echo "$length"

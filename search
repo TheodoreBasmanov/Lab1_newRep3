@@ -1,0 +1,10 @@
+#!/bin/bash
+#Check if the directory exist:
+if ! [[ -d $1 ]]
+then 
+echo "The directory dosn't exist" 1>&2
+exit  -4
+fi
+#Find the needed lines:
+grep -R -I -s $2 $1  2>&1 | grep -v "Permission denied"
+

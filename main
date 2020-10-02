@@ -1,0 +1,138 @@
+#!/bin/bash
+#Check the files.
+dir="$( dirname "${BASH_SOURCE[0]}" )"
+fileName="FileCheck"
+fileExists=$(find "$dir" -name "$fileName")
+if [[ $fileExists ]]
+then
+source FileCheck
+else
+echo "The file check file is missing." 1>&2
+exit -5
+fi
+#Get the arguements. If there's not enough arguements or the file is still missing the app will end its work with an error message and a negative exit code.
+if [[ "$1" = "calc" ]]
+then
+if [[ $calcFlag -eq 0 ]]
+then
+echo "The file is still missing." 1>&2
+exit -5
+else
+if ! [[ "$#" -eq 4 ]]
+then
+echo "Wron number of arguements." 1>&2
+exit -6
+else
+./calc $2 $3 $4
+fi
+fi
+else
+if [[ "$1" = "search" ]]
+then
+if [[ $searchFlag -eq 0 ]]
+then 
+echo "The file is still missing." 1>&2
+exit -5
+else
+if [[ "$#" -lt 3 ]]
+then
+echo "Not enough arguements." 1>&2
+exit -6
+else
+./search $2 $3
+fi
+fi
+else
+if [[ "$1" = "reverse" ]]
+then
+if [[ $reverseFlag -eq 0 ]]
+then 
+echo "The file is still missing." 1>&2
+exit -5
+else
+if [[ "$#" -lt 3 ]]
+then 
+echo "Not enough arguements." 1>&2
+exit -6
+else
+./reverse $2 $3
+fi
+fi
+else
+if [[ "$1" = "strlen" ]]
+then
+if [[ $strlenFlag -eq 0 ]]
+then
+echo "The file is still missing." 1>&2
+exit -5
+else
+if [[ "$#" -lt 2 ]]
+then
+echo "Not enough arguements." 1>&2
+exit -6
+else
+./strlen "$*"
+fi
+fi
+else
+if [[ "$1" = "log" ]]
+then
+if [[ $logFlag -eq 0 ]]
+then
+echo "The file is still missing." 1>&2
+exit -5
+else
+./log
+fi
+else
+if [[ "$1" = "exit" ]]
+then
+if [[ "$#" -lt 2 ]]
+then 
+exit 0
+else
+numberCheck='^[-,+]?[0-9]+$'
+if ! [[ $2 =~ $numberCheck ]]
+then
+echo "The exit code should be a number." 1>&2
+exit -7
+else
+exit $2
+fi
+fi
+else
+if [[ "$1" = "help" ]]
+then
+if [[ $helpFlag -eq 0 ]]
+then
+echo "The file is still missing." 1>&2
+exit -5
+else
+./help
+fi
+else
+if [[ "$1" = "interactive" ]]
+then
+if [[ $interactiveFlag -eq 0 ]]
+then 
+echo "The file is still missing."
+else
+./interactive
+fi
+else
+echo "There's no such key. See existing keys in Help." 1>&2
+if [[ $helpFlag -eq 0 ]]
+then 
+echo "Help file is missing." 1>&2
+exit -5
+else
+./help
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
+fi
